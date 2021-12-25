@@ -1,5 +1,7 @@
 const path = require('path');
-const HtmlWebpackPlugin = require('html-webpack-plugin')
+const HtmlWebpackPlugin = require("html-webpack-plugin");
+const MiniCssExtractPlugin = require("mini-css-extract-plugin");
+const autoprefixer = require('autoprefixer');
 
 module.exports = {
     entry: {
@@ -18,4 +20,35 @@ module.exports = {
             filename: 'index.html', // название выходного файла
         }),
     ],
+
+    module: {
+        rules: [{
+            test: /\.js$/,
+            loader: 'babel-loader',
+            exclude: '/node_modules'
+        },
+
+            {
+                test: /\.less$/,
+                use:  [
+                    'style-loader',
+                    MiniCssExtractPlugin.loader,
+                    'css-loader',
+                    {
+                        loader: 'postcss-loader',
+                        options: {
+                            plugins: [
+                                autoprefixer({
+                                    grid: true//,
+                                    //browsers:['ie >= 10', 'last 2 version']
+                                })
+                            ],
+                            sourceMap: true
+                        }
+                    },
+                    'less-loader'
+                ]
+            }
+        ]
+    },
 }
