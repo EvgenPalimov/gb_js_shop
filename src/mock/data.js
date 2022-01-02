@@ -38,6 +38,7 @@ function getProductList(count) {
     for(let i = 0; i < count; i++) {
         products.push(getProduct());
     }
+    console.log(JSON.stringify(products));
 
     return products
 }
