@@ -8,10 +8,6 @@ export function send(onError, onSuccess, url, method = 'GET', data = '', headers
         xhr = new ActiveXObject('Microsoft.XMLHTTP');
     }
 
-    for([key, value] of Object.entries(headers)) {
-        xhr.setRequestHeader(key, value);
-    }
-
     xhr.timeout = timeout;
 
     xhr.ontimeout = onError;
@@ -28,6 +24,9 @@ export function send(onError, onSuccess, url, method = 'GET', data = '', headers
 
     xhr.open(method, url, true);
 
+    for(const [key, value] of Object.entries(headers)) {
+        xhr.setRequestHeader(key, value);
+    }
     xhr.send(data);
 }
 
